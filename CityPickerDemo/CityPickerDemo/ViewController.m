@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "XMCityPicker.h"
+
 #define WIDTH [[UIScreen mainScreen] bounds].size.width
 #define HEIGHT [[UIScreen mainScreen] bounds].size.height
 
@@ -15,7 +16,9 @@
 
 @end
 @implementation ViewController
-
+{
+    XMCityPicker * _picker;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -24,10 +27,11 @@
 
 - (void)addCityPicker{
     
-    XMCityPicker * picker = [[XMCityPicker alloc] initWithFrame:CGRectMake(0, HEIGHT-200, WIDTH, 200)];
-    picker.delegate = self;
-    [self.view addSubview:picker];
+    _picker = [[XMCityPicker alloc] initWithFrame:CGRectMake(0, HEIGHT-200, WIDTH, 200)];
+    _picker.delegate = self;
+    [self.view addSubview:_picker];
 }
+
 
 /**
  获取省市区代理方法
@@ -39,7 +43,10 @@
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    [self addCityPicker];
+    if (!_picker.superview) {
+        [self addCityPicker];
+    }
+    
     
 }
 @end
